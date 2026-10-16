@@ -1,0 +1,168 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String           @id @default(cuid())
+  name            String?
+  email           String           @unique
+  password        String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  accounts        BankAccount[]
+  categories      Category[]
+  preference      UserPreference?
+  budgets         Budget[]
+  recurring       RecurringTransaction[]
+  bankConnections BankConnection[]
+}
+
+model UserPreference {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  baseCurrency  String   @default("EUR")
+  weekStartsOn  Int      @default(1)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Budget {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  amount     Float
+  currency   String   @default("EUR")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, categoryId])
+  @@index([userId])
+}
+
+model RecurringTransaction {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId   String
+  account     BankAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  categoryId  String?
+  category    Category?   @relation(fields: [categoryId], references: [id])
+  description String
+  amount      Float
+  type        TransactionType @default(EXPENSE)
+  frequency   String   @default("monthly")
+  nextDate    DateTime
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+model BankConnection {
+  id                String      @id @default(cuid())
+  userId            String
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bankAccountId     String      @unique
+  bankAccount       BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
+  truelayerAccountId String
+  accessToken       String      @db.Text
+  refreshToken      String      @db.Text
+  tokenExpiresAt    DateTime
+  lastSyncedAt      DateTime?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([userId])
+}
+
+model BankAccount {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  bankName     String
+  currency     String        @default("USD")
+  balance      Float         @default(0)
+  color        String        @default("#10b981")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[] @relation("AccountTransactions")
+  transfersOut Transaction[] @relation("TransferFrom")
+  statements      Statement[]
+  recurring       RecurringTransaction[]
+  bankConnection  BankConnection?
+
+  @@index([userId])
+}
+
+model Transaction {
+  id             String          @id @default(cuid())
+  accountId      String
+  account        BankAccount     @relation("AccountTransactions", fields: [accountId], references: [id], onDelete: Cascade)
+  categoryId     String?
+  category       Category?       @relation(fields: [categoryId], references: [id])
+  date           DateTime
+  description    String
+  amount         Float
+  type           TransactionType @default(EXPENSE)
+  transferToId   String?
+  transferTo     BankAccount?    @relation("TransferFrom", fields: [transferToId], references: [id])
+  notes          String?
+  importedFrom   String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([accountId])
+  @@index([date])
+  @@index([categoryId])
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+model Category {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  color        String        @default("#10b981")
+  icon         String?
+  isDefault    Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+  budgets      Budget[]
+  recurring    RecurringTransaction[]
+
+  @@unique([userId, name])
+  @@index([userId])
+}
+
+model Statement {
+  id          String          @id @default(cuid())
+  accountId   String
+  account     BankAccount     @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  fileName    String
+  status      StatementStatus @default(PROCESSING)
+  parsedCount Int             @default(0)
+  errorMsg    String?
+  createdAt   DateTime        @default(now())
+
+  @@index([accountId])
+}
+
+enum StatementStatus {
+  PROCESSING
+  COMPLETED
+  FAILED
+}

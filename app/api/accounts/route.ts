@@ -1,0 +1,57 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { db } from '@/lib/db'
+import { z } from 'zod'
+
+const accountSchema = z.object({
+  name: z.string().min(1).max(100),
+  bankName: z.string().min(1).max(100),
+  currency: z.string().length(3),
+  balance: z.number().default(0),
+  color: z.string().default('#10b981'),
+})
+
+export async function GET() {
+  const session = await getServerSession(authOptions)
+  if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const accounts = await db.bankAccount.findMany({
+    where: { userId: session.user.id },
+    include: {
+      _count: { select: { transactions: true } },
+      transactions: {
+        orderBy: { date: 'desc' },
+        take: 5,
+        include: { category: true },
+      },
+      bankConnection: {
+        select: { lastSyncedAt: true },
+      },
+    },
+    orderBy: { createdAt: 'asc' },
+  })
+
+  return NextResponse.json(accounts)
+}
+
+export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions)
+  if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  try {
+    const body = await req.json()
+    const data = accountSchema.parse(body)
+
+    const account = await db.bankAccount.create({
+      data: { ...data, userId: session.user.id },
+    })
+
+    return NextResponse.json(account, { status: 201 })
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: 'Invalid input', details: error.errors }, { status: 400 })
+    }
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
