@@ -85,14 +85,6 @@ Bank access tokens are stored in your database; protect it accordingly.
 
 FinTrack is self-hosted: your financial data stays in your own database on your own server. The app itself sends no telemetry and has no third-party analytics. The only outside calls are Google Fonts for the UI font and, if you enable it, TrueLayer for bank sync.
 
-## Deploy to Hostinger
-
-[![Deploy to Hostinger](https://assets.hostinger.com/vps/deploy.svg)](https://www.hostinger.com/docker-hosting?compose_url=RAW_COMPOSE_URL&REFERRALCODE=REFERRAL_CODE)
-
-<!-- TODO: when the repo goes public, replace RAW_COMPOSE_URL with the raw URL of docker-compose.yml
-     and REFERRAL_CODE with the referral code. One-click deploys only fetch the compose file, so also
-     publish a container image and set FINTRACK_IMAGE (or the `image:` default in docker-compose.yml) to it. -->
-
 ## Tech stack
 
 Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS, Prisma + PostgreSQL, NextAuth (credentials), Recharts, pdf-parse.
