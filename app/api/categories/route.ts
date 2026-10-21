@@ -6,7 +6,7 @@ import { z } from 'zod'
 
 const catSchema = z.object({
   name: z.string().min(1).max(50),
-  color: z.string().default('#10b981'),
+  color: z.string().default('#1E4C8A'),
   icon: z.string().optional(),
 })
 

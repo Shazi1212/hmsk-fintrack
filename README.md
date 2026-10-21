@@ -83,7 +83,7 @@ Bank access tokens are stored in your database; protect it accordingly.
 
 ## Privacy
 
-FinTrack is self-hosted: your financial data stays in your own database on your own server. The app itself sends no telemetry and has no third-party analytics. The only outside calls are Google Fonts for the UI font and, if you enable it, TrueLayer for bank sync.
+FinTrack is self-hosted: your financial data stays in your own database on your own server. The app itself sends no telemetry and has no third-party analytics. The only outside call is TrueLayer for bank sync, and only if you enable it. The fonts (Newsreader, Public Sans; SIL Open Font License) are self-hosted in `public/fonts/`.
 
 ## Tech stack
 

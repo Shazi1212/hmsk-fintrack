@@ -9,7 +9,7 @@ const accountSchema = z.object({
   bankName: z.string().min(1).max(100),
   currency: z.string().length(3),
   balance: z.number().default(0),
-  color: z.string().default('#10b981'),
+  color: z.string().default('#1E4C8A'),
 })
 
 export async function GET() {

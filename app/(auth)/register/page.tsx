@@ -55,37 +55,37 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 shadow-2xl">
-      <h1 className="text-2xl font-bold text-white mb-1">Create account</h1>
-      <p className="text-slate-400 text-sm mb-6">Start tracking your finances today — it&apos;s free</p>
+    <div className="card p-6 sm:p-8">
+      <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900 mb-1">Create account</h1>
+      <p className="text-slate-500 text-sm mb-6">Start tracking your finances today — it&apos;s free</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5">Your name</label>
+          <label className="label">Your name</label>
           <input
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="Alex"
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all text-sm"
+            className="input py-3"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5">Email</label>
+          <label className="label">Email</label>
           <input
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="you@example.com"
             required
-            className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all text-sm"
+            className="input py-3"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
+          <label className="label">Password</label>
           <input
             type="password"
             value={password}
@@ -93,12 +93,12 @@ export default function RegisterPage() {
             placeholder="At least 8 characters"
             required
             minLength={8}
-            className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all text-sm"
+            className="input py-3"
           />
         </div>
 
         {error && (
-          <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-3 rounded-xl">
+          <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-[3px]">
             {error}
           </div>
         )}
@@ -106,7 +106,7 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary w-full py-3"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -120,9 +120,9 @@ export default function RegisterPage() {
         </button>
       </form>
 
-      <p className="text-slate-400 text-sm text-center mt-6">
+      <p className="text-slate-500 text-sm text-center mt-6">
         Already have an account?{' '}
-        <Link href="/login" className="text-brand-400 hover:text-brand-300 font-medium transition-colors">
+        <Link href="/login" className="text-brand-500 hover:text-brand-600 font-semibold underline underline-offset-[3px] decoration-1 transition-colors">
           Sign in
         </Link>
       </p>

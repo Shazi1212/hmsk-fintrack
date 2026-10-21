@@ -70,7 +70,7 @@ export default function AccountDetailPage() {
     if (tx.type !== 'EXPENSE') continue
     const name = tx.category?.name || 'Uncategorized'
     if (!categoryTotals[name]) {
-      categoryTotals[name] = { total: 0, color: tx.category?.color || '#94a3b8', icon: tx.category?.icon }
+      categoryTotals[name] = { total: 0, color: tx.category?.color || '#7B8592', icon: tx.category?.icon }
     }
     categoryTotals[name].total += Math.abs(tx.amount)
   }
@@ -96,22 +96,22 @@ export default function AccountDetailPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center gap-4">
-        <Link href="/accounts" className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-slate-800 transition-colors">
+      <div className="flex flex-wrap items-center gap-4">
+        <Link href="/accounts" className="w-9 h-9 flex items-center justify-center rounded-[3px] bg-card border border-rule-strong text-slate-500 hover:text-slate-900 transition-colors">
           <ArrowLeft size={16} />
         </Link>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold" style={{ backgroundColor: account.color }}>
               {account.name.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-900">{account.name}</h1>
+              <h1 className="font-serif text-[1.75rem] leading-tight font-normal text-slate-900">{account.name}</h1>
               <p className="text-slate-500 text-sm">{account.bankName} · {account.currency}</p>
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button onClick={() => setShowEdit(true)} className="btn-secondary flex items-center gap-2 text-sm">
             <Edit2 size={14} /> Edit
           </button>
@@ -125,9 +125,9 @@ export default function AccountDetailPage() {
       </div>
 
       {/* Balance card */}
-      <div className="card p-6" style={{ background: `linear-gradient(135deg, ${account.color}15, ${account.color}05)`, borderColor: account.color + '30' }}>
+      <div className="card p-6" style={{ boxShadow: `inset 3px 0 0 ${account.color}` }}>
         <p className="text-slate-500 text-sm mb-1">Current balance</p>
-        <p className={`text-4xl font-bold ${account.balance < 0 ? 'text-red-500' : 'text-slate-900'}`}>
+        <p className={`font-serif text-5xl leading-tight tabular-nums break-words ${account.balance < 0 ? 'text-red-500' : 'text-brand-500'}`}>
           {formatCurrency(account.balance, account.currency)}
         </p>
         {account.balance < 0 && (
@@ -139,17 +139,17 @@ export default function AccountDetailPage() {
       {/* Category breakdown chart */}
       {sortedCategories.length > 0 && (
         <div className="card p-5">
-          <h2 className="text-slate-800 font-semibold text-sm mb-4">Spending by category</h2>
+          <h2 className="font-serif text-slate-900 font-medium text-lg mb-4">Spending by category</h2>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={barData} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-              <XAxis dataKey="name" tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => formatCurrency(v, account.currency)} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#CBD2D9" vertical={false} />
+              <XAxis dataKey="name" tick={{ fill: '#4A5562', fontSize: 11 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#4A5562', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => formatCurrency(v, account.currency)} />
               <Tooltip
-                contentStyle={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px' }}
+                contentStyle={{ background: '#F8F9FA', border: '1px solid #7B8592', borderRadius: '3px', color: '#151B24' }}
                 formatter={(v: number) => [formatCurrency(v, account.currency), 'Spent']}
               />
-              <Bar dataKey="amount" radius={[6, 6, 0, 0]}>
+              <Bar dataKey="amount" radius={[3, 3, 0, 0]}>
                 {barData.map((entry, i) => (
                   <Cell key={i} fill={entry.fill} />
                 ))}
@@ -162,12 +162,12 @@ export default function AccountDetailPage() {
       {/* Transactions */}
       <div className="card p-5">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-slate-800 font-semibold text-sm">Transactions</h2>
+          <h2 className="font-serif text-slate-900 font-medium text-lg">Transactions</h2>
           {months.length > 0 && (
             <select
               value={activeMonth}
               onChange={e => setActiveMonth(e.target.value)}
-              className="text-sm border border-slate-200 rounded-xl px-3 py-1.5 bg-white text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="text-sm border border-slate-200 rounded-xl px-3 py-1.5 bg-card text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="">All time</option>
               {months.map(m => <option key={m} value={m}>{m}</option>)}
@@ -184,7 +184,7 @@ export default function AccountDetailPage() {
       {/* Statement history */}
       {account.statements.length > 0 && (
         <div className="card p-5">
-          <h2 className="text-slate-800 font-semibold text-sm mb-4">Import history</h2>
+          <h2 className="font-serif text-slate-900 font-medium text-lg mb-4">Import history</h2>
           <div className="space-y-2">
             {account.statements.map(stmt => (
               <div key={stmt.id} className="flex items-center gap-3 py-2">

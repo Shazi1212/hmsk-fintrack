@@ -32,12 +32,6 @@ interface DashboardData {
 
 const CURRENCY_ORDER = ['EUR', 'GBP', 'USD', 'PKR']
 
-const CURRENCY_GRADIENT: Record<string, string> = {
-  EUR: 'gradient-card-green',
-  USD: 'gradient-card-blue',
-  GBP: 'gradient-card-purple',
-  PKR: 'gradient-card-amber',
-}
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null)
@@ -147,14 +141,14 @@ export default function DashboardPage() {
     return (
       <div className="space-y-6 animate-fade-in">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+          <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900">Dashboard</h1>
           <p className="text-slate-500 text-sm mt-0.5">Welcome to FinTrack</p>
         </div>
         <div className="card p-10 text-center max-w-lg mx-auto">
           <div className="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
             <Wallet size={28} className="text-brand-500" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">Welcome to FinTrack!</h2>
+          <h2 className="font-serif text-2xl font-normal text-slate-900 mb-2">Welcome to FinTrack!</h2>
           <p className="text-slate-500 text-sm mb-6 leading-relaxed">
             Your personal finance manager is ready. Start by adding your bank accounts —
             then import statements, track spending, and set budgets.
@@ -167,7 +161,7 @@ export default function DashboardPage() {
               <Upload size={15} /> Import bank statement
             </Link>
           </div>
-          <div className="mt-6 pt-6 border-t border-slate-100 grid grid-cols-3 gap-4 text-center">
+          <div className="mt-6 pt-6 border-t border-rule grid grid-cols-3 gap-4 text-center">
             {[
               { icon: '🏦', label: 'Multiple banks', desc: 'All in one place' },
               { icon: '📊', label: 'Auto-categorize', desc: 'Smart detection' },
@@ -209,12 +203,12 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+          <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900">Dashboard</h1>
           <p className="text-slate-500 text-sm mt-0.5">Your financial overview</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Link href="/upload" className="btn-secondary flex items-center gap-2 text-sm">
             <Upload size={15} /> Import
           </Link>
@@ -227,9 +221,9 @@ export default function DashboardPage() {
       {/* Balance cards — per currency, from selected accounts */}
       <div className={`grid gap-4 ${
         activeCurrencies.length === 1 ? 'grid-cols-1 sm:grid-cols-2' :
-        activeCurrencies.length === 2 ? 'grid-cols-2' :
-        activeCurrencies.length === 3 ? 'grid-cols-3' :
-        'grid-cols-2 lg:grid-cols-4'
+        activeCurrencies.length === 2 ? 'grid-cols-1 sm:grid-cols-2' :
+        activeCurrencies.length === 3 ? 'grid-cols-1 sm:grid-cols-3' :
+        'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
       }`}>
         {activeCurrencies.map(currency => {
           const balance = balanceByCurrency[currency] ?? 0
@@ -237,30 +231,29 @@ export default function DashboardPage() {
           const expenses = monthlyExpensesByCurrency[currency] ?? 0
           const net = income - expenses
           const hasActivity = income > 0 || expenses > 0
-          const gradient = CURRENCY_GRADIENT[currency] || 'gradient-card-green'
           return (
-            <div key={currency} className={`${gradient} rounded-2xl p-5 text-white`}>
+            <div key={currency} className="card p-5 min-w-0">
               <div className="flex items-start justify-between mb-3">
-                <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+                <div className="w-9 h-9 bg-brand-50 text-brand-500 rounded-md flex items-center justify-center">
                   <Wallet size={18} />
                 </div>
-                <span className="text-white/60 text-xs font-semibold uppercase tracking-wider bg-white/10 px-2 py-0.5 rounded-full">
+                <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider border border-rule-strong px-2 py-0.5 rounded-full">
                   {currency}
                 </span>
               </div>
-              <p className="text-white/70 text-xs font-medium uppercase tracking-wide">Balance</p>
-              <p className="text-2xl font-bold mt-1 leading-tight">{formatCurrency(balance, currency)}</p>
+              <p className="eyebrow">Balance</p>
+              <p className="font-serif text-[2rem] text-brand-500 mt-1 leading-tight tabular-nums break-words">{formatCurrency(balance, currency)}</p>
               {hasActivity && (
-                <div className="flex gap-3 mt-3 pt-3 border-t border-white/15">
+                <div className="flex flex-wrap gap-x-3 gap-y-1 mt-3 pt-3 border-t border-rule">
                   <div className="flex items-center gap-1.5">
-                    <TrendingUp size={12} className="text-white/70" />
-                    <span className="text-white/70 text-xs">{formatCurrency(income, currency)}</span>
+                    <TrendingUp size={12} className="text-slate-500" />
+                    <span className="text-slate-500 text-xs tabular-nums">{formatCurrency(income, currency)}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <TrendingDown size={12} className="text-white/70" />
-                    <span className="text-white/70 text-xs">{formatCurrency(expenses, currency)}</span>
+                    <TrendingDown size={12} className="text-slate-500" />
+                    <span className="text-slate-500 text-xs tabular-nums">{formatCurrency(expenses, currency)}</span>
                   </div>
-                  <span className={`ml-auto text-xs font-semibold ${net >= 0 ? 'text-white' : 'text-red-200'}`}>
+                  <span className={`ml-auto text-xs font-semibold tabular-nums ${net >= 0 ? 'text-emerald-700' : 'text-red-500'}`}>
                     {net >= 0 ? '+' : ''}{formatCurrency(net, currency)}
                   </span>
                 </div>
@@ -274,34 +267,36 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Monthly chart */}
         <div className="card p-5 lg:col-span-2">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-slate-800 font-semibold text-sm">Income vs Expenses — 6 months</h2>
-            <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <h2 className="font-serif text-slate-900 font-medium text-lg">Income vs Expenses — 6 months</h2>
+            <div className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1">
+              <span className="flex items-center gap-1.5 text-xs text-slate-500"><i className="w-4 h-0.5 bg-brand-500" />Income</span>
+              <span className="flex items-center gap-1.5 text-xs text-slate-500"><i className="w-4 border-t-2 border-dashed border-[#6E7F95]" />Expenses</span>
               {chartsLoading && <Loader2 size={13} className="text-slate-400 animate-spin" />}
-              <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">EUR accounts</span>
+              <span className="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">EUR accounts</span>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={monthlyData} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
               <defs>
                 <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#1E4C8A" stopOpacity={0.18} />
+                  <stop offset="95%" stopColor="#1E4C8A" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="expenseGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#ef4444" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#6E7F95" stopOpacity={0.18} />
+                  <stop offset="95%" stopColor="#6E7F95" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis dataKey="month" tick={{ fill: '#94a3b8', fontSize: 12 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `€${(v / 1000).toFixed(0)}k`} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#CBD2D9" />
+              <XAxis dataKey="month" tick={{ fill: '#4A5562', fontSize: 12 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#4A5562', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `€${(v / 1000).toFixed(0)}k`} />
               <Tooltip
-                contentStyle={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0,0,0,.05)' }}
+                contentStyle={{ background: '#F8F9FA', border: '1px solid #7B8592', borderRadius: '3px', boxShadow: '0 12px 30px -16px rgba(21,27,36,.4)', color: '#151B24' }}
                 formatter={(v: number) => [formatCurrency(v, 'EUR'), '']}
               />
-              <Area type="monotone" dataKey="income" stroke="#10b981" strokeWidth={2} fill="url(#incomeGrad)" name="Income" />
-              <Area type="monotone" dataKey="expenses" stroke="#ef4444" strokeWidth={2} fill="url(#expenseGrad)" name="Expenses" />
+              <Area type="monotone" dataKey="income" stroke="#1E4C8A" strokeWidth={2} fill="url(#incomeGrad)" name="Income" />
+              <Area type="monotone" dataKey="expenses" stroke="#6E7F95" strokeWidth={2} strokeDasharray="5 3" fill="url(#expenseGrad)" name="Expenses" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -309,14 +304,14 @@ export default function DashboardPage() {
         {/* Category pie */}
         <div className="card p-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-slate-800 font-semibold text-sm">Expenses by category</h2>
+            <h2 className="font-serif text-slate-900 font-medium text-lg">Expenses by category</h2>
             {chartsLoading && <Loader2 size={13} className="text-slate-400 animate-spin" />}
           </div>
           {categoryBreakdown.length > 0 ? (
             <>
               <ResponsiveContainer width="100%" height={130}>
                 <PieChart>
-                  <Pie data={categoryBreakdown} cx="50%" cy="50%" innerRadius={35} outerRadius={55} paddingAngle={3} dataKey="total">
+                  <Pie data={categoryBreakdown} cx="50%" cy="50%" innerRadius={35} outerRadius={55} paddingAngle={3} dataKey="total" stroke="#F8F9FA" strokeWidth={2}>
                     {categoryBreakdown.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                   </Pie>
                 </PieChart>
@@ -343,7 +338,7 @@ export default function DashboardPage() {
         {/* Accounts panel */}
         <div className="card p-5">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-slate-800 font-semibold text-sm">Accounts</h2>
+            <h2 className="font-serif text-slate-900 font-medium text-lg">Accounts</h2>
             <div className="flex items-center gap-3">
               <button
                 onClick={toggleAll}
@@ -364,13 +359,13 @@ export default function DashboardPage() {
                 <div
                   key={account.id}
                   onClick={() => toggleAccount(account.id)}
-                  className={`flex items-center gap-3 p-2.5 rounded-xl cursor-pointer transition-all select-none ${
-                    isSelected ? 'hover:bg-slate-50' : 'opacity-40 hover:opacity-60 hover:bg-slate-50'
+                  className={`flex items-center gap-3 p-2.5 rounded-[3px] cursor-pointer transition-colors select-none ${
+                    'hover:bg-slate-50'
                   }`}
                 >
                   {/* Checkbox */}
                   <div className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 transition-all border-2 ${
-                    isSelected ? 'bg-brand-500 border-brand-500' : 'border-slate-300 bg-white'
+                    isSelected ? 'bg-brand-500 border-brand-500' : 'border-rule-strong bg-card'
                   }`}>
                     {isSelected && (
                       <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 10 8" fill="none">
@@ -381,7 +376,7 @@ export default function DashboardPage() {
 
                   {/* Account colour dot */}
                   <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+                    className={`w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold flex-shrink-0 ${isSelected ? '' : 'grayscale opacity-50'}`}
                     style={{ backgroundColor: account.color }}
                   >
                     {account.name.slice(0, 2).toUpperCase()}
@@ -405,7 +400,7 @@ export default function DashboardPage() {
 
           {/* Selection summary */}
           {!allSelected && (
-            <div className="mt-3 pt-3 border-t border-slate-100 text-xs text-slate-400 text-center">
+            <div className="mt-3 pt-3 border-t border-rule text-xs text-slate-400 text-center">
               {selectedIds.size} of {accounts.length} accounts shown
             </div>
           )}
@@ -414,7 +409,7 @@ export default function DashboardPage() {
         {/* Recent transactions */}
         <div className="card p-5 lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-slate-800 font-semibold text-sm">Recent transactions</h2>
+            <h2 className="font-serif text-slate-900 font-medium text-lg">Recent transactions</h2>
             <Link href="/transactions" className="text-brand-500 text-xs hover:text-brand-600 flex items-center gap-1">
               View all <ChevronRight size={12} />
             </Link>
@@ -429,7 +424,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Target size={16} className="text-brand-500" />
-              <h2 className="text-slate-800 font-semibold text-sm">Monthly budgets</h2>
+              <h2 className="font-serif text-slate-900 font-medium text-lg">Monthly budgets</h2>
             </div>
             <Link href="/settings" className="text-brand-500 text-xs hover:text-brand-600 flex items-center gap-1">
               Manage <ChevronRight size={12} />
@@ -450,7 +445,7 @@ export default function DashboardPage() {
                       {formatCurrency(b.spent, b.currency)} / {formatCurrency(b.amount, b.currency)}
                     </span>
                   </div>
-                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-slate-100 border border-rule rounded-full overflow-hidden">
                     <div
                       className={cn('h-full rounded-full transition-all', over ? 'bg-red-400' : pct > 80 ? 'bg-amber-400' : 'bg-brand-500')}
                       style={{ width: `${pct}%` }}

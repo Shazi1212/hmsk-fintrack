@@ -76,12 +76,12 @@ export default function TransactionsPage() {
   return (
     <div className="space-y-5 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Transactions</h1>
+          <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900">Transactions</h1>
           <p className="text-slate-500 text-sm mt-0.5">{total} total transactions</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => {
               const params = new URLSearchParams()
@@ -104,19 +104,19 @@ export default function TransactionsPage() {
 
       {/* Summary bar */}
       {filtered.length > 0 && (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <div className="card p-4 text-center">
             <p className="text-slate-400 text-xs">Showing</p>
-            <p className="text-slate-900 font-bold text-lg">{filtered.length}</p>
+            <p className="font-serif text-slate-900 text-2xl tabular-nums">{filtered.length}</p>
             <p className="text-slate-400 text-xs">transactions</p>
           </div>
           <div className="card p-4 text-center">
             <p className="text-slate-400 text-xs">Total income</p>
-            <p className="text-emerald-600 font-bold text-lg">{formatCurrency(totalIncome)}</p>
+            <p className="font-serif text-emerald-600 text-2xl tabular-nums break-words">{formatCurrency(totalIncome)}</p>
           </div>
           <div className="card p-4 text-center">
             <p className="text-slate-400 text-xs">Total expenses</p>
-            <p className="text-red-500 font-bold text-lg">{formatCurrency(totalExpenses)}</p>
+            <p className="font-serif text-red-500 text-2xl tabular-nums break-words">{formatCurrency(totalExpenses)}</p>
           </div>
         </div>
       )}
@@ -189,20 +189,20 @@ export default function TransactionsPage() {
 
         {/* Pagination */}
         {total > LIMIT && (
-          <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-between mt-4 pt-4 border-t border-rule">
             <p className="text-slate-400 text-sm">{offset + 1}–{Math.min(offset + LIMIT, total)} of {total}</p>
             <div className="flex gap-2">
               <button
                 disabled={offset === 0}
                 onClick={() => setOffset(o => Math.max(0, o - LIMIT))}
-                className="btn-secondary text-sm disabled:opacity-40"
+                className="btn-secondary text-sm"
               >
                 Previous
               </button>
               <button
                 disabled={offset + LIMIT >= total}
                 onClick={() => setOffset(o => o + LIMIT)}
-                className="btn-secondary text-sm disabled:opacity-40"
+                className="btn-secondary text-sm"
               >
                 Next
               </button>

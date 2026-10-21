@@ -11,7 +11,7 @@ export interface CategoryRule {
 export const DEFAULT_CATEGORIES: CategoryRule[] = [
   {
     name: 'Food & Dining',
-    color: '#f59e0b',
+    color: '#1E4C8A',
     icon: '🍽️',
     keywords: [
       // EN
@@ -29,7 +29,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Groceries',
-    color: '#84cc16',
+    color: '#2B6440',
     icon: '🛒',
     keywords: [
       // EN
@@ -46,7 +46,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Transport',
-    color: '#3b82f6',
+    color: '#4B78B4',
     icon: '🚗',
     keywords: [
       // EN
@@ -64,7 +64,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Shopping',
-    color: '#ec4899',
+    color: '#6B3F8F',
     icon: '🛍️',
     keywords: [
       // EN
@@ -81,7 +81,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Health & Medical',
-    color: '#ef4444',
+    color: '#A3262A',
     icon: '🏥',
     keywords: [
       // EN
@@ -98,7 +98,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Entertainment',
-    color: '#8b5cf6',
+    color: '#7A4E00',
     icon: '🎬',
     keywords: [
       // EN
@@ -114,7 +114,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Utilities',
-    color: '#06b6d4',
+    color: '#263A57',
     icon: '⚡',
     keywords: [
       // EN
@@ -131,7 +131,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Housing & Rent',
-    color: '#f97316',
+    color: '#151B24',
     icon: '🏠',
     keywords: [
       // EN
@@ -145,7 +145,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Travel',
-    color: '#0ea5e9',
+    color: '#4B78B4',
     icon: '✈️',
     keywords: [
       // EN
@@ -160,7 +160,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Education',
-    color: '#6366f1',
+    color: '#6B3F8F',
     icon: '📚',
     keywords: [
       // EN
@@ -174,7 +174,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Subscriptions',
-    color: '#a855f7',
+    color: '#7A4E00',
     icon: '🔄',
     keywords: [
       'subscription', 'monthly plan', 'annual plan', 'membership',
@@ -185,7 +185,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Income',
-    color: '#10b981',
+    color: '#2B6440',
     icon: '💰',
     keywords: [
       // EN
@@ -199,7 +199,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Transfer',
-    color: '#64748b',
+    color: '#4A5562',
     icon: '↔️',
     keywords: [
       'transfer', 'wire transfer', 'ach', 'zelle', 'venmo', 'paypal',
@@ -208,7 +208,7 @@ export const DEFAULT_CATEGORIES: CategoryRule[] = [
   },
   {
     name: 'Other',
-    color: '#94a3b8',
+    color: '#7B8592',
     icon: '📦',
     keywords: [],
   },

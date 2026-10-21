@@ -28,7 +28,7 @@ export default function UploadPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Import Bank Statement</h1>
+        <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900">Import Bank Statement</h1>
         <p className="text-slate-500 text-sm mt-0.5">Upload a PDF statement to automatically import transactions</p>
       </div>
 
@@ -37,7 +37,7 @@ export default function UploadPage() {
           <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <AlertCircle className="text-amber-500" size={24} />
           </div>
-          <h2 className="text-slate-800 font-semibold mb-2">No accounts yet</h2>
+          <h2 className="font-serif text-slate-900 font-medium text-lg mb-2">No accounts yet</h2>
           <p className="text-slate-500 text-sm mb-4">You need to add a bank account before importing statements.</p>
           <button
             onClick={() => router.push('/accounts')}
@@ -57,7 +57,7 @@ export default function UploadPage() {
 
       {/* How it works */}
       <div className="card p-6">
-        <h3 className="text-slate-800 font-semibold text-sm mb-4">How it works</h3>
+        <h3 className="font-serif text-slate-900 font-medium text-lg mb-4">How it works</h3>
         <div className="space-y-4">
           {[
             { step: '1', title: 'Export from your bank', desc: 'Download a PDF statement from your bank\'s online portal. Most banks support this.' },
@@ -75,7 +75,7 @@ export default function UploadPage() {
             </div>
           ))}
         </div>
-        <div className="mt-4 pt-4 border-t border-slate-100">
+        <div className="mt-4 pt-4 border-t border-rule">
           <p className="text-slate-500 text-xs">
             <strong className="text-slate-700">Supported languages:</strong> English, Portuguese, German — and any bank statement with standard date/amount patterns.
           </p>

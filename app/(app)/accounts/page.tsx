@@ -112,7 +112,7 @@ export default function AccountsPage() {
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Accounts</h1>
+          <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900">Accounts</h1>
           <p className="text-slate-500 text-sm mt-0.5">Manage your bank accounts</p>
         </div>
         <button
@@ -129,7 +129,7 @@ export default function AccountsPage() {
           <div className="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <CreditCard className="text-brand-500" size={28} />
           </div>
-          <h2 className="text-slate-800 font-semibold text-lg mb-2">Add your first account</h2>
+          <h2 className="font-serif text-slate-900 font-medium text-xl mb-2">Add your first account</h2>
           <p className="text-slate-500 text-sm mb-6">Track balances, import statements, and analyze spending across all your banks.</p>
           <button onClick={() => setShowAdd(true)} className="btn-primary mx-auto flex items-center gap-2">
             <Plus size={15} />
@@ -177,7 +177,7 @@ export default function AccountsPage() {
 
                 <div className="mb-4">
                   <p className="text-slate-400 text-xs mb-1">Current balance</p>
-                  <p className={`text-2xl font-bold ${account.balance < 0 ? 'text-red-500' : 'text-slate-900'}`}>
+                  <p className={`font-serif text-[2rem] leading-tight tabular-nums break-words ${account.balance < 0 ? 'text-red-500' : 'text-brand-500'}`}>
                     {formatCurrency(account.balance, account.currency)}
                   </p>
                   <p className="text-slate-400 text-xs mt-0.5">
@@ -186,7 +186,7 @@ export default function AccountsPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-50">
+                <div className="grid grid-cols-2 gap-3 pt-4 border-t border-rule">
                   <div className="flex items-center gap-2">
                     <div className="w-7 h-7 bg-emerald-50 rounded-lg flex items-center justify-center">
                       <TrendingUp size={13} className="text-emerald-600" />
@@ -207,12 +207,12 @@ export default function AccountsPage() {
                   </div>
                 </div>
 
-                <div className="mt-3 pt-3 border-t border-slate-50 space-y-2">
+                <div className="mt-3 pt-3 border-t border-rule space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="text-slate-400 text-xs">{account._count.transactions} transactions</p>
                     <button
                       onClick={() => handleDelete(account.id)}
-                      className="text-slate-300 hover:text-red-500 text-xs transition-colors"
+                      className="text-slate-500 hover:text-red-500 text-xs underline underline-offset-2 transition-colors"
                     >
                       Delete
                     </button>
@@ -223,7 +223,7 @@ export default function AccountsPage() {
                       <button
                         onClick={() => handleSync(account.id)}
                         disabled={syncing === account.id}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors disabled:opacity-50"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors"
                       >
                         <RefreshCw size={11} className={syncing === account.id ? 'animate-spin' : ''} />
                         {syncing === account.id ? 'Syncing...' : 'Sync Now'}
@@ -247,7 +247,7 @@ export default function AccountsPage() {
                   )}
 
                   {bankSyncEnabled && isConnected && account.bankConnection?.lastSyncedAt && (
-                    <p className="text-slate-300 text-xs text-center">
+                    <p className="text-slate-400 text-xs text-center">
                       Last synced {new Date(account.bankConnection.lastSyncedAt).toLocaleDateString()}
                     </p>
                   )}

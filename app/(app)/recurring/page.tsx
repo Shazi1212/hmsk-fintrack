@@ -80,7 +80,7 @@ export default function RecurringPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Recurring</h1>
+          <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900">Recurring</h1>
           <p className="text-slate-500 text-sm mt-0.5">Manage subscriptions and regular payments</p>
         </div>
         <button onClick={() => setShowAdd(true)} className="btn-primary flex items-center gap-2 text-sm">
@@ -128,7 +128,7 @@ export default function RecurringPage() {
           <div className="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <RefreshCw size={24} className="text-slate-400" />
           </div>
-          <h3 className="text-slate-700 font-semibold mb-1">No recurring transactions yet</h3>
+          <h3 className="font-serif text-slate-900 font-medium text-lg mb-1">No recurring transactions yet</h3>
           <p className="text-slate-400 text-sm mb-4">Set up subscriptions, salaries, rent — anything that repeats.</p>
           <button onClick={() => setShowAdd(true)} className="btn-primary text-sm">
             <Plus size={14} className="inline mr-1.5" />
@@ -140,7 +140,7 @@ export default function RecurringPage() {
       {/* Active list */}
       {active.length > 0 && (
         <div className="card p-5">
-          <h3 className="text-sm font-semibold text-slate-700 mb-4">Active ({active.length})</h3>
+          <h3 className="font-serif text-lg font-medium text-slate-900 mb-4">Active ({active.length})</h3>
           <div className="space-y-3">
             {active.map(item => (
               <RecurringRow
@@ -159,7 +159,7 @@ export default function RecurringPage() {
       {/* Paused list */}
       {paused.length > 0 && (
         <div className="card p-5 opacity-70">
-          <h3 className="text-sm font-semibold text-slate-500 mb-4">Paused ({paused.length})</h3>
+          <h3 className="font-serif text-lg font-medium text-slate-500 mb-4">Paused ({paused.length})</h3>
           <div className="space-y-3">
             {paused.map(item => (
               <RecurringRow
@@ -201,7 +201,7 @@ function RecurringRow({
   return (
     <div className={cn('flex items-center gap-3 p-3 rounded-xl', isDue && item.active ? 'bg-amber-50' : 'hover:bg-slate-50')}>
       <div className="w-9 h-9 rounded-xl flex items-center justify-center text-base flex-shrink-0"
-        style={{ backgroundColor: (item.category?.color ?? '#94a3b8') + '20' }}>
+        style={{ backgroundColor: (item.category?.color ?? '#7B8592') + '20' }}>
         {item.category?.icon ?? '📦'}
       </div>
       <div className="flex-1 min-w-0">

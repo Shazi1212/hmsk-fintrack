@@ -68,14 +68,14 @@ export const CURRENCIES = [
 ]
 
 export const ACCOUNT_COLORS = [
-  '#10b981', // emerald
-  '#3b82f6', // blue
-  '#8b5cf6', // violet
-  '#f59e0b', // amber
-  '#ef4444', // red
-  '#ec4899', // pink
-  '#06b6d4', // cyan
-  '#84cc16', // lime
-  '#f97316', // orange
-  '#6366f1', // indigo
+  '#1E4C8A', // accent blue
+  '#A3262A', // red
+  '#2B6440', // green
+  '#7A4E00', // ochre
+  '#6B3F8F', // plum
+  '#4A5562', // slate
+  '#151B24', // ink
+  '#4B78B4', // mid blue
+  '#263A57', // navy
+  '#5B6B80', // grey blue
 ]

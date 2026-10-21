@@ -15,11 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <meta name="theme-color" content="#EFF1F2" />
+        <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/publicsans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body className="font-sans antialiased bg-slate-50">
+      <body className="font-sans antialiased bg-paper text-ink">
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

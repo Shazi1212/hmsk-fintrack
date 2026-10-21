@@ -40,12 +40,12 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 animate-fade-in max-w-3xl">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
+        <h1 className="font-serif text-[2rem] leading-tight font-normal text-slate-900">Settings</h1>
         <p className="text-slate-500 text-sm mt-0.5">Manage your account and preferences</p>
       </div>
 
       {/* Tab bar */}
-      <div className="flex gap-1 bg-slate-100 p-1 rounded-xl w-fit">
+      <div className="flex flex-wrap gap-1 bg-slate-100 border border-rule p-1 rounded-md w-fit max-w-full">
         {([
           { id: 'profile', label: 'Profile', icon: User },
           { id: 'categories', label: 'Categories', icon: Tag },
@@ -58,9 +58,9 @@ export default function SettingsPage() {
               key={t.id}
               onClick={() => setTab(t.id)}
               className={cn(
-                'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all',
+                'flex items-center gap-2 px-4 py-2 rounded-[3px] text-sm font-medium transition-colors',
                 tab === t.id
-                  ? 'bg-white text-slate-900 shadow-sm'
+                  ? 'bg-card text-slate-900 font-semibold shadow-[inset_0_-2px_0_var(--accent)]'
                   : 'text-slate-500 hover:text-slate-700'
               )}
             >
@@ -138,7 +138,7 @@ function ProfileTab({ user, onSaved }: { user: any; onSaved: () => void }) {
       <div className="card p-6 space-y-4">
         <div className="flex items-center gap-2 mb-1">
           <User size={16} className="text-brand-500" />
-          <h3 className="font-semibold text-slate-900">Profile</h3>
+          <h3 className="font-serif text-lg font-medium text-slate-900">Profile</h3>
         </div>
         <div>
           <p className="text-xs text-slate-400 mb-1">Email (cannot change)</p>
@@ -164,7 +164,7 @@ function ProfileTab({ user, onSaved }: { user: any; onSaved: () => void }) {
       <div className="card p-6 space-y-4">
         <div className="flex items-center gap-2 mb-1">
           <Lock size={16} className="text-brand-500" />
-          <h3 className="font-semibold text-slate-900">Change password</h3>
+          <h3 className="font-serif text-lg font-medium text-slate-900">Change password</h3>
         </div>
         <form onSubmit={savePassword} className="space-y-3">
           <div>
@@ -179,7 +179,7 @@ function ProfileTab({ user, onSaved }: { user: any; onSaved: () => void }) {
             <label className="text-xs text-slate-500 block mb-1">Confirm new password</label>
             <input type="password" className="input" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} />
           </div>
-          <button type="submit" disabled={saving || !currentPw || !newPw} className="btn-primary text-sm disabled:opacity-50">
+          <button type="submit" disabled={saving || !currentPw || !newPw} className="btn-primary text-sm">
             {saving ? 'Changing…' : 'Change password'}
           </button>
         </form>
@@ -193,7 +193,7 @@ function CategoriesTab({ categories, onChanged }: { categories: any[]; onChanged
   const [showAdd, setShowAdd] = useState(false)
   const [editing, setEditing] = useState<any>(null)
   const [newName, setNewName] = useState('')
-  const [newColor, setNewColor] = useState('#10b981')
+  const [newColor, setNewColor] = useState('#1E4C8A')
   const [newIcon, setNewIcon] = useState('📦')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -206,7 +206,7 @@ function CategoriesTab({ categories, onChanged }: { categories: any[]; onChanged
   }
 
   function resetForm() {
-    setNewName(''); setNewColor('#10b981'); setNewIcon('📦'); setError('')
+    setNewName(''); setNewColor('#1E4C8A'); setNewIcon('📦'); setError('')
   }
 
   async function saveCategory() {
@@ -254,7 +254,7 @@ function CategoriesTab({ categories, onChanged }: { categories: any[]; onChanged
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Tag size={16} className="text-brand-500" />
-            <h3 className="font-semibold text-slate-900">Categories</h3>
+            <h3 className="font-serif text-lg font-medium text-slate-900">Categories</h3>
             <span className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">{categories.length}</span>
           </div>
           <button
@@ -265,7 +265,7 @@ function CategoriesTab({ categories, onChanged }: { categories: any[]; onChanged
           </button>
         </div>
 
-        <div className="divide-y divide-slate-50">
+        <div className="divide-y divide-rule">
           {categories.map(cat => (
             <div key={cat.id} className="flex items-center gap-3 py-3">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0" style={{ backgroundColor: cat.color + '20' }}>
@@ -371,7 +371,7 @@ function PreferencesTab({ preference, onSaved }: { preference: any; onSaved: () 
     <div className="card p-6 space-y-6">
       <div className="flex items-center gap-2">
         <Sliders size={16} className="text-brand-500" />
-        <h3 className="font-semibold text-slate-900">Preferences</h3>
+        <h3 className="font-serif text-lg font-medium text-slate-900">Preferences</h3>
       </div>
 
       <div className="space-y-5">
@@ -464,7 +464,7 @@ function BudgetsTab({ data, onChanged }: { data: { budgets: any[]; categories: a
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Target size={16} className="text-brand-500" />
-            <h3 className="font-semibold text-slate-900">Monthly budgets</h3>
+            <h3 className="font-serif text-lg font-medium text-slate-900">Monthly budgets</h3>
             <span className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">{data.budgets.length}</span>
           </div>
           {availableCats.length > 0 && (

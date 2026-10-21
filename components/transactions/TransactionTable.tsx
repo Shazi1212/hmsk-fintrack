@@ -46,7 +46,7 @@ export default function TransactionTable({
   }
 
   return (
-    <div className="divide-y divide-slate-50">
+    <div className="divide-y divide-rule">
       {transactions.map(tx => {
         const config = typeConfig[tx.type as keyof typeof typeConfig] || typeConfig.EXPENSE
         const Icon = config.icon
@@ -55,7 +55,7 @@ export default function TransactionTable({
         return (
           <div
             key={tx.id}
-            className="flex items-center gap-4 py-3.5 px-1 hover:bg-slate-50/50 rounded-xl transition-colors group"
+            className="flex items-center gap-3 sm:gap-4 py-3.5 px-1 hover:bg-slate-50 rounded-[3px] transition-colors group"
           >
             {/* Icon */}
             <div className={cn('w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0', config.bg)}>
@@ -65,14 +65,14 @@ export default function TransactionTable({
             {/* Description + meta */}
             <div className="flex-1 min-w-0">
               <p className="text-slate-900 text-sm font-medium truncate">{tx.description}</p>
-              <div className="flex items-center gap-2 mt-0.5">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-0.5">
                 <span className="text-slate-400 text-xs">{formatDateShort(tx.date)}</span>
                 {tx.category && (
                   <span
-                    className="text-xs px-1.5 py-0.5 rounded-md font-medium"
+                    className="text-xs px-1.5 py-0.5 rounded-[3px] font-medium text-slate-700"
                     style={{
-                      backgroundColor: tx.category.color + '20',
-                      color: tx.category.color,
+                      backgroundColor: tx.category.color + '1A',
+                      boxShadow: `inset 2px 0 0 ${tx.category.color}`,
                     }}
                   >
                     {tx.category.icon} {tx.category.name}
@@ -90,7 +90,7 @@ export default function TransactionTable({
             {/* Amount */}
             <div className="text-right flex-shrink-0">
               <p className={cn(
-                'text-sm font-semibold',
+                'text-sm font-semibold tabular-nums',
                 tx.type === 'INCOME' ? 'text-emerald-600' : tx.type === 'TRANSFER' ? 'text-blue-600' : 'text-slate-900'
               )}>
                 {tx.type === 'INCOME' ? '+' : tx.type === 'EXPENSE' ? '-' : ''}

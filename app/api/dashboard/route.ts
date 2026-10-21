@@ -101,7 +101,7 @@ export async function GET(req: NextRequest) {
     .filter(c => c._sum.amount !== null)
     .map(c => ({
       name: c.categoryId ? catMap[c.categoryId]?.name ?? 'Unknown' : 'Uncategorized',
-      color: c.categoryId ? catMap[c.categoryId]?.color ?? '#94a3b8' : '#94a3b8',
+      color: c.categoryId ? catMap[c.categoryId]?.color ?? '#7B8592' : '#7B8592',
       icon: c.categoryId ? catMap[c.categoryId]?.icon ?? '📦' : '📦',
       total: Math.abs(c._sum.amount!),
       count: c._count.id,

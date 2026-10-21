@@ -26,20 +26,20 @@ export default function Modal({ open, onClose, title, children, size = 'md' }: M
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-ink/50" onClick={onClose} />
       <div
         className={cn(
-          'relative bg-white rounded-2xl shadow-2xl w-full animate-slide-up',
+          'relative bg-card border border-rule-strong rounded-md shadow-[0_30px_60px_-30px_rgba(21,27,36,.5)] w-full animate-slide-up',
           size === 'sm' && 'max-w-sm',
           size === 'md' && 'max-w-md',
           size === 'lg' && 'max-w-2xl',
         )}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-          <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-rule">
+          <h2 className="font-serif text-xl font-medium text-slate-900">{title}</h2>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-paper-2 rounded-[3px] transition-colors"
           >
             <X size={16} />
           </button>

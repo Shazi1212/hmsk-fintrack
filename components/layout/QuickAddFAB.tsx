@@ -57,7 +57,7 @@ export default function QuickAddFAB() {
                   key={action.type}
                   onClick={() => openWithType(action.type)}
                   className={cn(
-                    'flex items-center gap-2 px-4 py-2.5 rounded-2xl text-white text-sm font-medium shadow-lg transition-all hover:scale-105',
+                    'flex items-center gap-2 px-4 py-2.5 rounded-[3px] text-white text-sm font-semibold shadow-soft transition-colors active:scale-[.97]',
                     action.color
                   )}
                 >
@@ -73,8 +73,8 @@ export default function QuickAddFAB() {
         <button
           onClick={() => setOpen(o => !o)}
           className={cn(
-            'w-14 h-14 rounded-2xl shadow-xl text-white flex items-center justify-center transition-all duration-200 hover:scale-105',
-            open ? 'bg-slate-700 rotate-45' : 'bg-brand-500 hover:bg-brand-600'
+            'w-14 h-14 rounded-md shadow-[0_12px_30px_-12px_rgba(21,27,36,.6)] text-white flex items-center justify-center transition-all duration-200 active:scale-[.97]',
+            open ? 'bg-slate-900 rotate-45' : 'bg-brand-500 hover:bg-brand-600'
           )}
         >
           <Plus size={24} />

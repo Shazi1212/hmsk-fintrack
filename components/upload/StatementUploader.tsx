@@ -101,7 +101,7 @@ export default function StatementUploader({ accounts, onSuccess }: StatementUplo
                 'flex items-center gap-3 p-3 rounded-xl border-2 text-left transition-all',
                 selectedAccountId === account.id
                   ? 'border-brand-500 bg-brand-50'
-                  : 'border-slate-200 hover:border-slate-300 bg-white'
+                  : 'border-slate-200 hover:border-slate-300 bg-card'
               )}
             >
               <div
@@ -133,7 +133,7 @@ export default function StatementUploader({ accounts, onSuccess }: StatementUplo
             isDragActive
               ? 'border-brand-500 bg-brand-50'
               : file
-              ? 'border-brand-400 bg-brand-50/50'
+              ? 'border-brand-400 bg-brand-50'
               : 'border-slate-200 hover:border-brand-300 hover:bg-slate-50'
           )}
         >
@@ -208,7 +208,7 @@ export default function StatementUploader({ accounts, onSuccess }: StatementUplo
       <button
         onClick={handleUpload}
         disabled={!file || !selectedAccountId || uploading}
-        className="w-full py-3 btn-primary flex items-center justify-center gap-2 text-base font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3 btn-primary flex items-center justify-center gap-2 text-base font-semibold disabled:cursor-not-allowed"
       >
         {uploading ? (
           <>
