@@ -30,10 +30,10 @@ More about the project: <https://hmsk.life/tools/fintrack/>
 git clone <this repo> fintrack && cd fintrack
 cp .env.example .env
 # edit .env: set NEXTAUTH_SECRET (openssl rand -base64 32) and NEXTAUTH_URL
-docker compose up -d
+docker compose up -d --build     # first build takes about 2 minutes
 ```
 
-Open <http://localhost:3000> and register your first user. The database schema is created automatically on start; data lives in the `fintrack-db` Docker volume. `DATABASE_URL` in `.env` is ignored here, compose points the app at its own Postgres container (set `POSTGRES_PASSWORD` in `.env` to change the default password).
+Open <http://localhost:3000> and register your first user. Docker Compose refuses to start while `NEXTAUTH_SECRET` is empty. To use another port, set `APP_PORT` (and `NEXTAUTH_URL` to match). `--build` also rebuilds the image after a `git pull`; the app needs about 100 MB of RAM including Postgres. The database schema is created automatically on start; data lives in the `fintrack-db` Docker volume. `DATABASE_URL` in `.env` is ignored here, compose points the app at its own Postgres container (set `POSTGRES_PASSWORD` in `.env` to change the default password).
 
 ### Option B: Node.js + any PostgreSQL
 
