@@ -37,6 +37,8 @@ RUN groupadd --system --gid 1001 nodejs && useradd --system --create-home --uid 
 # Next.js standalone server + static assets
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# public/ (self-hosted fonts); standalone output does not include it
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 # Prisma schema + CLI (for `prisma db push` on start) and generated client
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma ./node_modules/prisma
